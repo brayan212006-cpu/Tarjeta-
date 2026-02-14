@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Yo Te Elijo ❤️</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Courier New', monospace;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    color:white;
+
+    background:
+    linear-gradient(to top, #000000, #1a0026),
+    repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,0.05) 0px,
+        rgba(255,255,255,0.05) 1px,
+        transparent 1px,
+        transparent 40px
+    ),
+    repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.05) 0px,
+        rgba(255,255,255,0.05) 1px,
+        transparent 1px,
+        transparent 40px
+    );
+
+    background-blend-mode: overlay;
+}
+
+/* POKEBOLA */
+.pokebola{
+    box-shadow: 0 0 20px red, 0 0 40px #ff4da6;
+    width:200px;
+    height:200px;
+    border-radius:50%;
+    background:linear-gradient(red 50%, white 50%);
+    border:8px solid black;
+    position:relative;
+    cursor:pointer;
+    transition:0.5s;
+}
+
+.centro{
+    width:60px;
+    height:60px;
+    background:white;
+    border:8px solid black;
+    border-radius:50%;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+
+.linea{
+    width:100%;
+    height:8px;
+    background:black;
+    position:absolute;
+    top:50%;
+}
+
+/* CONTENIDO OCULTO */
+.contenido{
+    position:absolute;
+    text-align:center;
+    display:none;
+    animation: aparecer 1s ease forwards;
+}
+
+.contenido img{
+    width:200px;
+    border-radius:20px;
+    margin-bottom:15px;
+    border:4px solid white;
+}
+
+h1{
+    font-size:24px;
+    color:#ff4da6;
+    text-shadow:0 0 10px #ff4da6;
+}
+
+/* ANIMACIONES */
+@keyframes aparecer{
+    from{opacity:0; transform:scale(0);}
+    to{opacity:1; transform:scale(1);}
+}
+
+.corazon{
+    position:absolute;
+    font-size:20px;
+    animation: flotar 4s linear infinite;
+}
+
+@keyframes flotar{
+    from{transform:translateY(0);}
+    to{transform:translateY(-100vh);}
+}
+
+/* EFECTO ARCADE */
+body::after{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background: repeating-linear-gradient(
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.03) 3px
+    );
+    pointer-events:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="pokebola" onclick="abrir()">
+    <div class="linea"></div>
+    <div class="centro"></div>
+</div>
+
+<div class="contenido" id="contenido">
+    <!-- CAMBIA LA IMAGEN AQUÍ -->
+    <img src="/file_00000000a038720e9d71518431655cd5.png">
+    <h1>Feliz San Valentín ❤️<br>Yo te elijo</h1>
+<p id="contador"></p>
+<p class="mensaje-romantico">
+    Desde que llegaste a mi vida, 
+    todo se volvió más brillante ✨
+    Eres mi compañero de aventuras,
+    mi persona favorita
+    y la mejor decisión que he tomado 💖  
+    Siempre te voy a elegir.
+</p>
+<script>
+function abrir(){
+    document.querySelector(".pokebola").style.display="none";
+    document.getElementById("contenido").style.display="block";
+    corazonesArcade();
+
+    // FECHA DE INICIO (CAMBIA ESTA FECHA)
+const fechaInicio = new Date("2025-10-10"); // <-- cambia aquí
+
+function actualizarContador(){
+    const ahora = new Date();
+    const diferencia = ahora - fechaInicio;
+
+    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
+    const minutos = Math.floor((diferencia / (1000 * 60)) % 60);
+    const segundos = Math.floor((diferencia / 1000) % 60);
+
+    document.getElementById("contador").innerHTML =
+        "Llevamos juntos: 💖<br>" +
+        dias + " días, " +
+        horas + " horas, " +
+        minutos + " minutos, " +
+        segundos + " segundos";
+}
+
+setInterval(actualizarContador, 1000);
+actualizarContador();
+}
+
+function corazonesArcade(){
+    setInterval(()=>{
+        let c = document.createElement("div");
+        c.classList.add("corazon");
+        c.innerHTML = "❤️";
+        c.style.left = Math.random()*100+"vw";
+        c.style.fontSize = (Math.random()*15+15)+"px";
+        document.body.appendChild(c);
+
+        setTimeout(()=>{
+            c.remove();
+        },4000);
+
+    },200);
+}
+</script>
+
+</body>
+</html>
